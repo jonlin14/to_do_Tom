@@ -8,7 +8,7 @@ class Task
             $this->description = $description;
         }
 
-        function setDescription($new_description);
+        function setDescription($new_description)
         {
             $this->description = (string) $new_description;
 
@@ -19,6 +19,15 @@ class Task
             return $this->description;
         }
 
+        function save()
+        {
+            array_push($_SESSION['list_of_tasks'], $this);
+        }
+
+        static function getAll()
+        {
+            return $_SESSION['list_of_tasks'];
+        }
 }
 
 ?>

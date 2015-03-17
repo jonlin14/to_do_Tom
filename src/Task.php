@@ -1,26 +1,33 @@
 <?php
 class Task
 {
+        //create properties
         private $description;
         private $id;
 
+        //construct objects
+        //set id to null, allows it to know where to start
         function __construct($description, $id = null)
         {
             $this->description = $description;
             $this->id = $id;
         }
 
+        //Sets and can modify the value of $description
         function setDescription($new_description)
         {
             $this->description = (string) $new_description;
 
         }
 
+        //Gets the value of a private variable $description and $id
         function getDescription()
         {
             return $this->description;
         }
 
+
+        //Saves the content from each row of the database table and stores it by id number.
         function save()
         {
             $statement = $GLOBALS['DB']->query("INSERT INTO tasks (description) VALUES ('{$this->getDescription()}') RETURNING id;");
@@ -28,23 +35,25 @@ class Task
             $this->setId($result['id']);
         }
 
+        //Returns a list of all of our tasks by looping through all of the saved tasks
         static function getAll()
         {
+
             $returned_tasks = $GLOBALS['DB']->query("SELECT * FROM tasks;");
-        $tasks = array();
-        foreach($returned_tasks as $task)
-        {
-            $description = $task['description'];
-            $id = $task['id'];
-            $new_task = new Task($description, $id);
-            array_push($tasks, $new_task);
+            $tasks = array();
+            foreach($returned_tasks as $task)
+            {
+                $description = $task['description'];
+                $id = $task['id'];
+                $new_task = new Task($description, $id);
+                array_push($tasks, $new_task);
 
         }
 
         return $tasks;
 
     }
-
+        //Clears all the tasks in our list using the Clear button and with the delete_tasks twig page. 
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM tasks *;");
@@ -72,7 +81,7 @@ class Task
                  }
              }
           return $found_task;
-          
+
         }
 }
 

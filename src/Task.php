@@ -3,14 +3,16 @@ class Task
 {
         //create properties
         private $description;
+        private $category_id;
         private $id;
 
         //construct objects
         //set id to null, allows it to know where to start
-        function __construct($description, $id = null)
+        function __construct($description, $id = null, $category_id)
         {
             $this->description = $description;
             $this->id = $id;
+            $this->category_id = $category_id;
         }
 
         //Sets and can modify the value of $description
@@ -27,10 +29,35 @@ class Task
         }
 
 
+        //Gets the value of the private variable $id, which referrs to the id number of the task in the database.
+        function getId()
+        {
+            return $this->id;
+        }
+
+        //Sets and can modify value of $id, like generating a new id.
+        function setId($new_id)
+        {
+            $this->id = (int) $new_id;
+        }
+
+
+        function setCategoryId($new_category_id)
+        {
+            $this->category_id = (int) $new_category_id;
+        }
+
+
+        function getCategoryId()
+        {
+            return $this->category_id;
+        }
+
+
         //Saves the content from each row of the database table and stores it by id number.
         function save()
         {
-            $statement = $GLOBALS['DB']->query("INSERT INTO tasks (description) VALUES ('{$this->getDescription()}') RETURNING id;");
+            $statement = $GLOBALS['DB']->query("INSERT INTO tasks (description, category_id) VALUES ('{$this->getDescription()}', {$this->getCategoryId()}) RETURNING id;");
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             $this->setId($result['id']);
         }
@@ -45,7 +72,8 @@ class Task
             {
                 $description = $task['description'];
                 $id = $task['id'];
-                $new_task = new Task($description, $id);
+                $category_id = $task['category_id'];
+                $new_task = new Task($description, $id, $category_id);
                 array_push($tasks, $new_task);
 
         }
@@ -60,17 +88,6 @@ class Task
             $GLOBALS['DB']->exec("DELETE FROM tasks *;");
         }
 
-         //Gets the value of the private variable $id, which referrs to the id number of the task in the database.
-         function getId()
-         {
-             return $this->id;
-         }
-
-         //Sets and can modify value of $id, like generating a new id.
-         function setId($new_id)
-         {
-             $this->id = (int) $new_id;
-         }
 
          //Allows us to find a particular task from our database.
          static function find($search_id)

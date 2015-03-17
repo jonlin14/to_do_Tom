@@ -3,24 +3,27 @@
     <title>To Do List</title>
 </head>
 <body>
-    <h1>Categories</h1>
+    <h1>{{ category.getName }}</h1>
 
-    {% if categories is not empty %}
-        <p>Here are all your categories:</p>
+    {% if tasks is not empty %}
+        <p>Here are all your tasks:</p>
         <ul>
-            {% for category in categories %}
-                <li>{{ category.getName }}</li>
+            {% for task in tasks %}
+                <li>{{ task.getDescription }}</li>
             {% endfor %}
         </ul>
     {% endif %}
 
-    <form action='/categories' method='post'>
-        <label for='name'>Category name</label>
-        <input id='name' name='name' type='text'>
+    <h4>Add a task</h4>
 
-        <button type='submit'>Add category</button>
+    <form action='/tasks' method='post'>
+        <input id=
+        <label for='description'>Task name</label>
+        <input id='description' name='description' type='text'>
+
+        <button type='submit'>Add task</button>
     </form>
-    <form action='/delete_categories' method='post'>
+    <form action='/delete_tasks' method='post'>
         <button type='submit'>Clear</button>
     </form>
 

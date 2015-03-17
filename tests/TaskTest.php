@@ -12,13 +12,13 @@
     class TaskTest extends PHPUnit_Framework_TestCase
     {
 
+        //Clears the database after each test.
         protected function tearDown()
         {
             Task::deleteAll();
         }
 
-
-        function test_getId()
+        //Searches for an ID with which to associate each task.
         {
             //Arrange
             $description = "Wash the dog";
@@ -33,6 +33,7 @@
 
         }
 
+        //Instatiates each new Task object with an ID so that we can find each task by its ID.
         function test_setId()
         {
             //Arrange
@@ -48,6 +49,7 @@
             $this->assertEquals(2, $result);
         }
 
+        //Updates the value of $id variable to reflect the new ID that the database has assigned. 
         function test_save()
         {
 

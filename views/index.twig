@@ -17,7 +17,7 @@
     {% if category is not empty %}
         <p>Here are all your categories:</p>
         <ul>
-            {% for category in categories %}
+            {% for category in category %}
                 <li><a href="/categories/{{ category.getId }}">/{{ category.getName }}</a></li>
             {% endfor %}
         </ul>

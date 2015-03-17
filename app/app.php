@@ -42,7 +42,7 @@
 
     $app->post("/delete_tasks", function() use ($app) {
         Task::deleteAll();
-        return $app['twig']->render('index.twig');
+        return $app['twig']->render('index.twig', array('category' => Category::getAll()));
     });
 
 

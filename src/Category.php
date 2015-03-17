@@ -75,11 +75,26 @@
             foreach($categories as $current_category) {
                 $category_id = $current_category->getId();
                 if ($category_id == $search_id) {
-                    //if the id number in the current_category matches the input $search_id value (the id of the category we are looking for), then assign $current_category value (which is the  current_category object) into $found_category container. 
+                    //if the id number in the current_category matches the input $search_id value (the id of the category we are looking for), then assign $current_category value (which is the  current_category object) into $found_category container.
                   $found_category = $current_category;
                 }
             }
             return $found_category;
+        }
+
+        function getTasks()
+        {
+            $tasks = Array();
+            $returned_tasks = $GLOBALS['DB']->query("SELECT * FROM tasks WHERE category_id = {$this->getId()};");
+            foreach($returned_tasks as $task) {
+                $description = $task['description'];
+                $id = $task['id'];
+                $category_id = $task['category_id'];
+                $new_Task = new Task($description, $id, $category_id);
+                array_push($tasks, $new_Task);
+            }
+
+            return $tasks;
         }
     }
 ?>

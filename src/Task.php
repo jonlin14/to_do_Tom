@@ -20,7 +20,7 @@ class Task
 
         }
 
-        //Gets the value of a private variable $description and $id
+        //Gets the value of a private variable $description
         function getDescription()
         {
             return $this->description;
@@ -50,26 +50,29 @@ class Task
 
         }
 
+        //Show us what's in the array $tasks after running through the foreach loop and extracting what's in the database
         return $tasks;
 
     }
-        //Clears all the tasks in our list using the Clear button and with the delete_tasks twig page. 
+        //Clears all the tasks in our list using the Clear button and with the delete_tasks twig page.
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM tasks *;");
         }
 
-
+         //Gets the value of the private variable $id, which referrs to the id number of the task in the database.
          function getId()
          {
              return $this->id;
          }
 
+         //Sets and can modify value of $id, like generating a new id.
          function setId($new_id)
          {
              $this->id = (int) $new_id;
          }
 
+         //Allows us to find a particular task from our database.
          static function find($search_id)
          {
              $found_task = null;

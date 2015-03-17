@@ -1,6 +1,7 @@
 <?php
     class Category
     {
+        //create properties
         private $name;
         private $id;
 

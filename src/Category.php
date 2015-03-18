@@ -66,6 +66,11 @@
 
         }
 
+        function delete()
+        {
+            
+        }
+
         //Returns a list of all of our tasks by looping through all of the saved tasks, and creates a new object with an array called $categories.
         static function getAll()
         {

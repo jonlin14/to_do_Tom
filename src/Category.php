@@ -68,7 +68,8 @@
 
         function delete()
         {
-            
+            $GLOBALS['DB']->exec("DELETE FROM categories WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM tasks WHERE category_id = {$this->getId()};");
         }
 
         //Returns a list of all of our tasks by looping through all of the saved tasks, and creates a new object with an array called $categories.

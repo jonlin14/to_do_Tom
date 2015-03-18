@@ -9,22 +9,25 @@
 
     <form action="/categories" method="post">
         <label for="name">Category name:</label>
-        <input id="name" name="name" type="text">
+        <input id="name" name="name" type="text" required>
 
         <button type="submit">Add category</button>
     </form>
 
-    {% if category is not empty %}
+    {% if category_array is not empty %}
         <p>Here are all your categories:</p>
         <ul>
-            {% for category in category %}
-                <li><a href="/categories/{{ category.getId }}">/{{ category.getName }}</a></li>
+            {% for category in category_array %}
+                <li><a href="/categories/{{ category.getId }}">{{ category.getName }}</a></li>
             {% endfor %}
         </ul>
     {% else %}
         <p>There are no categories yet, silly!</p>
     {% endif %}
 
+    <form action="/delete_categories" method="post">
+        <button type="submit">Delete Categories Fool!</button>
+    </form>
 
 </body>
 </html>

@@ -14,6 +14,9 @@
         'twig.path' => __DIR__.'/../views'
     ));
 
+    use Symfony\Component\HttpFoundation\Request;
+    Request::enableHttpMethodParameterOverride();
+
 
     //load homepage and display all the categories from the database
     $app->get("/", function() use ($app) {
@@ -60,6 +63,14 @@
     $app->post("/delete_categories", function() use ($app) {
         Category::deleteAll();
         return $app['twig']->render('index.twig', array('category_array' => Category::getAll()));
+    });
+
+
+    //Links to category_edit.twig to retrieve category using the find method and displays this on category_edit.twig
+    $app->get("/categories/{id}/edit", function($id) use ($app) {
+        $category = Category::find($id);
+        return $app['twig']->render('category_edit.twig', array('category' => $category));
+
     });
 
 

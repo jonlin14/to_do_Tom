@@ -77,7 +77,7 @@
         $name = $_POST['name'];
         $category = Category::find($id);
         $category->update($name);
-        return $app['twig']->render('category_edit.twig', array('category' => $category, 'tasks' => $category->getTasks()));
+        return $app['twig']->render('category_task.twig', array('category' => $category, 'tasks' => $category->getTasks()));
 
     });
 

@@ -1,10 +1,5 @@
 epicodus=# CREATE DATABASE to_do;
 epicodus=# \c to_do;
-to_do=# CREATE TABLE tasks (id serial PRIMARY KEY, description varchar);
+to_do=# CREATE TABLE tasks (id serial PRIMARY KEY, description varchar, category_id int);
 to_do=# CREATE TABLE categories (id serial PRIMARY KEY, name varchar);
-
-to_do=# CREATE DATABASE to_do_test WITH TEMPLATE to_do;
-
-to_do=# ALTER TABLE tasks ADD category_id int;
-to_do=# DROP DATABASE to_do_test;
 to_do=# CREATE DATABASE to_do_test WITH TEMPLATE to_do;

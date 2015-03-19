@@ -76,32 +76,45 @@ class Task
                 $new_task = new Task($description, $id, $category_id);
                 array_push($tasks, $new_task);
 
+            }
+
+            //Show us what's in the array $tasks after running through the foreach loop and extracting what's in the database
+            return $tasks;
         }
-
-        //Show us what's in the array $tasks after running through the foreach loop and extracting what's in the database
-        return $tasks;
-
-    }
         //Clears all the tasks in our list using the Clear button and with the delete_tasks twig page.
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM tasks *;");
         }
 
+        //Allows us to find a particular task from our database.
+        static function find($search_id)
+        {
+            $found_task = null;
+            $tasks = Task::getAll();
+            foreach($tasks as $task) {
+                $task_id = $task->getId();
+                if ($task_id == $search_id) {
+                    $found_task = $task;
+                }
+            }
+            return $found_task;
+        }
 
-         //Allows us to find a particular task from our database.
-         static function find($search_id)
-         {
-             $found_task = null;
-             $tasks = Task::getAll();
-             foreach($tasks as $task) {
-                 $task_id = $task->getId();
-                 if ($task_id == $search_id) {
-                     $found_task = $task;
-                 }
-             }
-          return $found_task;
+        static function searchTasks($search_term)
+        {
+            $search_results = $GLOBALS['DB']->query("SELECT * FROM tasks WHERE description LIKE '%{$search_term}%';");
+            $tasks = array();
 
+            foreach($search_results as $task)
+            {
+                $desc = $task['description'];
+                $id = $task['id'];
+                $category_id = $task['category_id'];
+                $new_task = new Task($desc, $id, $category_id);
+                array_push($tasks, $new_task);
+            }
+            return $tasks;
         }
 }
 

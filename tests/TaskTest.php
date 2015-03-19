@@ -84,9 +84,10 @@
             $result = Task::getAll();
             $this->assertEquals($test_task, $result[0]);
 
+        }
 
-            function test_getAll()
-            {
+        function test_getAll()
+        {
 
             //Arrange
             $name = "Home stuff";
@@ -109,63 +110,82 @@
 
             //Assert
             $this->assertEquals([$test_task, $test_task2], $result);
-            }
+        }
 
-            function test_deleteAll()
-            {
+        function test_deleteAll()
+        {
 
-                //Arrange
-                $name = "Home stuff";
-                $id = null;
-                $test_category = new Category($name, $id);
-                $test_category->save();
-
-
-                $description = "Wash the dog";
-                $category_id = $test_category->getId();
-                $test_task = new Task($description, $id, $category_id);
-                $test_task->save();
+            //Arrange
+            $name = "Home stuff";
+            $id = null;
+            $test_category = new Category($name, $id);
+            $test_category->save();
 
 
-                $description2 = "Water the lawn";
-                $test_task2 = new Task($description2, $id, $category_id);
-                $test_Task2->save();
+            $description = "Wash the dog";
+            $category_id = $test_category->getId();
+            $test_task = new Task($description, $id, $category_id);
+            $test_task->save();
 
-                //Act
-                Task::deleteAll();
 
-                //Assert
-                $result = Task::getAll();
-                $this->assertEquals([], $result);
+            $description2 = "Water the lawn";
+            $test_task2 = new Task($description2, $id, $category_id);
+            $test_Task2->save();
 
-            }
+            //Act
+            Task::deleteAll();
 
-            function test_find()
-            {
-                //Arrange
-                $name = "Home stuff";
-                $id = null;
-                $test_category = new Category($name, $id);
-                $test_category->save();
-
-                $description = "Wash the dog";
-                $category_id = $test_category->getId();
-                $test_task = new Task($description, $id, $category_id);
-                $test_task->save();
-
-                $description2 = "Water the lawn";
-                $test_task2 = new Task($description2, $id, $category_id);
-                $test_task2->save();
-
-                //Act
-                $result = Task::find($test_task->getId());
-
-                //Assert
-                $this->assertEquals($test_task, $result);
-            }
+            //Assert
+            $result = Task::getAll();
+            $this->assertEquals([], $result);
 
         }
 
+        function test_find()
+        {
+            //Arrange
+            $name = "Home stuff";
+            $id = null;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $description = "Wash the dog";
+            $category_id = $test_category->getId();
+            $test_task = new Task($description, $id, $category_id);
+            $test_task->save();
+
+            $description2 = "Water the lawn";
+            $test_task2 = new Task($description2, $id, $category_id);
+            $test_task2->save();
+
+            //Act
+            $result = Task::find($test_task->getId());
+
+            //Assert
+            $this->assertEquals($test_task, $result);
+        }
+
+        function test_searchTasks()
+        {
+            //arrange
+            $desc = "Water the lawn";
+            $desc2 = "Feed the dog";
+
+            $test_task = new Task($desc, 1, 1);
+            $test_task2 = new Task($desc2, 2, 1);
+            $test_task->save();
+            $test_task2->save();
+
+            $search = "Water";
+
+            //act
+            $found_tasks = Task::searchTasks($search);
+
+
+            //assert
+            $this->assertEquals([$test_task], $found_tasks[0])
+
+        }
     }
 
 ?>

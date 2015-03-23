@@ -34,6 +34,22 @@
             $this->assertEquals($name, $result);
         }
 
+        function test_setName()
+        {
+            //arrange
+            $name = "Grading Papers";
+            $test_category = new Category($name, 1);
+            $new_name = "Rain";
+
+            //Act
+            $result = $test_category->setName($new_name);
+            $result = $test_category->getName();
+
+            //Assert
+            $this->assertEquals("Rain", $result);
+
+        }
+
         function test_getId()
         {
             //Arrange
@@ -153,6 +169,20 @@
             $this->assertEquals("Home stuff", $test_category->getName());
         }
 
+        function test_updateDatabase()
+        {
+            //arrange
+            $test_category = new Category("Work stuff");
+            $test_category->save();
+
+            //Act
+            $test_category->update("Home stuff");
+            $result = Category::getAll();
+
+            //Assert
+            $this->assertEquals("Home stuff", $result[0]->getName());
+        }
+
         function test_delete()
         {
             //Arrange
@@ -172,6 +202,28 @@
             $this->assertEquals([$test_category2], Category::getAll());
         }
 
+        function test_deleteTasks()
+        {
+            //arrange
+            $name = "Things";
+            $id = null;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $description = "Red";
+            $test_task = new Task($description, $id);
+            $test_task->save();
+
+            $test_category->addTask($test_task);
+            $test_category->delete();
+
+            //act
+            $result = $test_category->tasks();
+
+            //assert
+            $this->assertEquals([], $result);
+
+        }
         // function test_delete_categorysTasks()
         // {
         //     //arrange
@@ -192,43 +244,43 @@
         //     $this->assertEquals([], Task::getAll());
         // }
 
-        // function test_addTask()
-        // {
-        //     $name = "Work Stuff";
-        //     $id = 1;
-        //     $test_category = new Category($name, $id);
-        //     $test_category->save();
-        //
-        //     $description = "Make tests";
-        //     $test_task = new Task($description, $id);
-        //     $test_task->save();
-        //
-        //     $test_category->addTask($test_task);
-        //
-        //     $this->assertEquals([$test_task],$test_category->tasks());
-        //
-        // }
-        //
-        // function test_tasks()
-        // {
-        //     $name = "Work Stuff";
-        //     $id = 1;
-        //     $test_category = new Category($name, $id);
-        //     $test_category->save();
-        //
-        //     $description = "Make tests";
-        //     $test_task = new Task($description, $id);
-        //     $test_task->save();
-        //
-        //     $description1 = "Make apples";
-        //     $test_task1 = new Task($description1, $id);
-        //     $test_task1->save();
-        //
-        //     $test_category->addTask($test_task);
-        //     $test_category->addTask($test_task1);
-        //
-        //     $this->assertEquals([$test_task, $test_task1], $test_category->tasks());
-        // }
+        function test_addTask()
+        {
+            $name = "Work Stuff";
+            $id = 1;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $description = "Make tests";
+            $test_task = new Task($description, $id);
+            $test_task->save();
+
+            $test_category->addTask($test_task);
+
+            $this->assertEquals([$test_task],$test_category->tasks());
+
+        }
+
+        function test_tasks()
+        {
+            $name = "Work Stuff";
+            $id = 1;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $description = "Make tests";
+            $test_task = new Task($description, $id);
+            $test_task->save();
+
+            $description1 = "Make apples";
+            $test_task1 = new Task($description1, $id);
+            $test_task1->save();
+
+            $test_category->addTask($test_task);
+            $test_category->addTask($test_task1);
+
+            $this->assertEquals([$test_task, $test_task1], $test_category->tasks());
+        }
     }
 
 ?>

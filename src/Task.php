@@ -53,6 +53,36 @@ class Task
             $this->setDescription($new_name);
         }
 
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM tasks WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM categories_tasks WHERE task_id = {$this->getId()};");
+        }
+
+        function addCategory($new_category)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO categories_tasks (category_id, task_id) VALUES ({$new_category->getId()}, {$this->getId()});");
+        }
+
+        function categories()
+        {
+            $category_id_query = $GLOBALS['DB']->query("SELECT category_id FROM categories_tasks WHERE task_id = {$this->getId()};");
+            $cat_id_array = $category_id_query->fetchAll(PDO::FETCH_ASSOC);
+
+            $categories = array();
+            foreach($cat_id_array as $row)
+            {
+                $cat_id = $row['category_id'];
+                $query = $GLOBALS['DB']->query("SELECT * FROM categories WHERE id = {$cat_id};");
+                $cat_array = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                $id = $cat_array[0]['id'];
+                $name = $cat_array[0]['name'];
+                $new_category = new Category($name, $id);
+                array_push($categories, $new_category);
+            }
+            return $categories;
+        }
 
         //Returns a list of all of our tasks by looping through all of the saved tasks
         static function getAll()

@@ -229,7 +229,55 @@
 
             //assert
             $this->assertEquals([$test_task], $found_tasks);
+        }
 
+        function test_addCategory()
+        {
+            //arrange
+            $test_task = new Task("Feed the dog");
+            $test_task->save();
+
+            $test_category = new Category("Do Tonight");
+            $test_category->save();
+
+            //act
+            $test_task->addCategory($test_category);
+            $result = $test_task->categories();
+
+            //assert
+            $this->assertEquals($test_category, $result[0]);
+        }
+
+        function test_delete()
+        {
+            //arrange
+            $test_task = new Task("Code in SQL");
+            $test_task->save();
+
+            //act
+            $test_task->delete();
+            $result = Task::getAll();
+
+            //assert
+            $this->assertEquals([], $result);
+        }
+
+        function test_deleteCategories()
+        {
+            //arrange
+            $test_task = new Task("Code in SQL");
+            $test_task->save();
+
+            $test_category = new Category("Weekend");
+            $test_category->save();
+
+            //act
+            $test_task->addCategory($test_category);
+            $test_task->delete();
+            $result = $test_task->categories();
+
+            //assert
+            $this->assertEquals([], $result);
         }
     }
 

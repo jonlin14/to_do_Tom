@@ -3,16 +3,14 @@ class Task
 {
         //create properties
         private $description;
-        private $category_id;
         private $id;
 
         //construct objects
         //set id to null, allows it to know where to start
-        function __construct($description, $id = null, $category_id)
+        function __construct($description, $id = null)
         {
             $this->description = $description;
             $this->id = $id;
-            $this->category_id = $category_id;
         }
 
         //Sets and can modify the value of $description
@@ -41,26 +39,20 @@ class Task
             $this->id = (int) $new_id;
         }
 
-
-        function setCategoryId($new_category_id)
-        {
-            $this->category_id = (int) $new_category_id;
-        }
-
-
-        function getCategoryId()
-        {
-            return $this->category_id;
-        }
-
-
         //Saves the content from each row of the database table and stores it by id number.
         function save()
         {
-            $statement = $GLOBALS['DB']->query("INSERT INTO tasks (description, category_id) VALUES ('{$this->getDescription()}', {$this->getCategoryId()}) RETURNING id;");
+            $statement = $GLOBALS['DB']->query("INSERT INTO tasks (description) VALUES ('{$this->getDescription()}') RETURNING id;");
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             $this->setId($result['id']);
         }
+
+        function update($new_name)
+        {
+            $GLOBALS['DB']->exec("UPDATE tasks SET description = '{$new_name}' WHERE id = {$this->getId()};");
+            $this->setDescription($new_name);
+        }
+
 
         //Returns a list of all of our tasks by looping through all of the saved tasks
         static function getAll()
@@ -72,8 +64,7 @@ class Task
             {
                 $description = $task['description'];
                 $id = $task['id'];
-                $category_id = $task['category_id'];
-                $new_task = new Task($description, $id, $category_id);
+                $new_task = new Task($description, $id);
                 array_push($tasks, $new_task);
 
             }
@@ -90,6 +81,10 @@ class Task
         //Allows us to find a particular task from our database.
         static function find($search_id)
         {
+            //change to use a query instead of creating all the task objects
+
+
+
             $found_task = null;
             $tasks = Task::getAll();
             foreach($tasks as $task) {
@@ -110,8 +105,7 @@ class Task
             {
                 $desc = $task['description'];
                 $id = $task['id'];
-                $category_id = $task['category_id'];
-                $new_task = new Task($desc, $id, $category_id);
+                $new_task = new Task($desc, $id);
                 array_push($tasks, $new_task);
             }
             return $tasks;

@@ -1,32 +1,42 @@
 <html>
     <head>
-        <title>Categories</title>
+        <link rel="stylesheet" href="/css/normalize.css" media="all">
+        <link rel="stylesheet" href="/css/skeleton.css" media="all">
+        <link rel="stylesheet" href="/css/bootstrap.css" media="all">
+        <link rel="stylesheet" href="/css/main.css" media="all">
+        <title>To Do List</title>
     </head>
     <body>
-            Categories
+        <div class = "container">
+            <h6><a href="/" %gt;>Home</a><h6>
+            <div class = "jumbotron"><h3 class = "header-center">Categories</h2></div>
 
+            <div class = "row">
             {% if categories is not empty %}
             <ul>
                 {% for category in categories %}
-                <li> <a href="/categories/{{ category.getId() }}">{{ category.getName() }} </a> </li>
+                <li> <a href="/categories/{{ category.getId() }}">{{ category.getName() }}</a></li>
                 {% endfor %}
             </ul>
-            
+
             {% else %}
             <p> You have no categories currently </p>
             {% endif %}
+            </div>
 
+            <div class = "row">
 
-            <form action = "/categories" method ="post">
-                <label for = "category_name"> Category Name </label>
-                <input id = "category_name" name = "category_name" type = "text" required>
-                <button type = "submit">Go</button>
-            </form>
+                    <form action = "/categories" method ="post">
+                        <label for = "category_name"></label>
+                        <input class = "u-full-width" id = "category_name" name = "category_name" type = "text" required placeholder = "Type Your Category">
+                <div class = "twelve columns">
+                        <button class = "bubble" type = "submit">Add Category</button>
+                    </form>
 
-            <form action = "/delete_categories" method = "post">
-                <button type = "submit">Delete</button>
-            </form>
-
-            <a href="/">Click to go home</a>
+                    <form action = "/delete_categories" method = "post">
+                        <button class = "bubble" type = "submit">Delete All</button>
+                    </form>
+                </div>
+            </div>
     </body>
 </html>

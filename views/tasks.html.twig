@@ -1,39 +1,47 @@
 <html>
     <head>
+        <link rel="stylesheet" href="/css/normalize.css" media="all">
+        <link rel="stylesheet" href="/css/skeleton.css" media="all">
+        <link rel="stylesheet" href="/css/main.css" media="all">
         <title>To Do List</title>
     </head>
     <body>
-        <h1>Tasks</h1>
 
-        <ul>
-            {% for task in tasks %}
+        <div class="container">
 
-                <li><a href="/tasks/{{ task.getId() }}">{{ task.getDescription() }}</a></li>
+            <div class="row">
+                <p>
+                    <a href="/">Home</a> &gt; Tasks
+                </p>
 
-            {% endfor %}
-        </ul>
+                <h2>Tasks</h2>
 
-        {% if tasks is empty %}
+                <ul>
+                    {% for task in tasks %}
 
-            <h3>There are no tasks currently. Add some!</h3>
+                        <li><a href="/tasks/{{ task.getId() }}">{{ task.getDescription() }}</a></li>
 
-        {% endif %}
+                    {% endfor %}
+                </ul>
 
-        <form action="/tasks" method="post">
-            <label for="task_name">Task Name</label>
-            <input type="text" name="task_name" id="task_name" required>
+                {% if tasks is empty %}
 
-            <button type="submit">Add Task</button>
-        </form>
+                    <h5>There are no tasks currently. Add some below!</h5>
 
-        <form action="/delete_tasks" method="post">
+                {% endif %}
+            </div>
 
-            <button type="submit">Delete All</button>
-        </form>
+            <div class="row">
+                <form action="/tasks" method="post">
+                    <label for="task_name">Task Name</label>
+                    <input class="u-full-width" type="text" name="task_name" id="task_name" required>
 
-        <p>
-            <a href="/">Home</a>
-        </p>
-
+                    <button type="submit">Add Task</button>
+                </form>
+                <form action="/delete_tasks" method="post">
+                    <button class="caution" type="submit">Delete All</button>
+                </form>
+            </div>
+        </div>
     </body>
 </html>

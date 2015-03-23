@@ -1,10 +1,13 @@
 <html>
     <head>
+        <link rel="stylesheet" href="/css/normalize.css" media="all">
+        <link rel="stylesheet" href="/css/skeleton.css" media="all">
+        <link rel="stylesheet" href="/css/main.css" media="all">
         <title>To Do List</title>
     </head>
     <body>
         <p>
-            <a href="/">HOME</a> &gt; <a href="/tasks">Tasks</a> &gt; {{ task.getDescription() }}
+            <a href="/">Home</a> &gt; <a href="/tasks">Tasks</a> &gt; {{ task.getDescription() }}
         </p>
 
         <h1>Task &colon; {{ task.getDescription() }}</h1>

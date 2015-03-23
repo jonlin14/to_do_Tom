@@ -1,0 +1,57 @@
+/*Custom CSS styles for Categories and Task*/
+
+h2 {
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li a {
+    color: #69945F;
+    text-decoration: none;
+    background-color: #D0F7C6;
+    padding: 15px;
+    border-radius: 5px;
+}
+li a:hover {
+    color: white;
+}
+
+.bubble {
+    display: inline-block;
+    height: 50px;
+    width: 100%;
+    background-color: #eee;
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+li {
+    padding: 15px;
+    margin-bottom: 10px;
+    float: left;
+}
+
+.caution {
+    background-color: #FA7575;
+    border: 1px solid black;
+}
+
+.header-center {
+    text-align:center;
+}
+
+.jumbotron {
+    margin-top:20px;
+    background-color: orange;
+}
+
+.ahref {
+    margin-top:10px;
+}

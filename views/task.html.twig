@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>To Do List</title>
+    </head>
+    <body>
+        <p>
+            <a href="/">HOME</a> &gt; <a href="/tasks">Tasks</a> &gt; {{ task.getDescription() }}
+        </p>
+
+        <h1>Task &colon; {{ task.getDescription() }}</h1>
+
+        <hr>
+
+        {% if categories is not empty %}
+
+            <h3>This Task is in these categories:</h3>
+
+            <ul>
+                {% for category in categories %}
+
+                    <li><a href="/categories/{{ category.getId() }}">{{ category.getName() }}</a></li>
+
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>
+                No Categories were found, add one!
+            </p>
+        {% endif %}
+
+        {% if all_categories is not empty %}
+            <h3>Link a Category to this Task</h3>
+
+            <form action="/tasks/{{ task.getId() }}" method="post">
+                <label for="category_name">Category Name</label>
+                <select id="category_name" name="category_name">
+                    {% for category in all_categories %}
+                        <option value="{{ category.getId()}}">{{ category.getName() }}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit">Add Category</button>
+            </form>
+        {% endif %}
+
+        <form action="/tasks/{{ task.getId() }}" method="post">
+            <input type="hidden" name="_method" value="patch">
+
+            <label for="change_desc">Enter a new name</label>
+            <input type="text" name="change_desc" id="change_desc">
+
+            <button type="submit">Update</button>
+        </form>
+
+        <form action="/tasks" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <input type="hidden" name="task_delete" value="{{ task.getId() }}">
+
+            <button type="submit">Delete</button>
+        </form>
+
+    </body>
+</html>

@@ -2,18 +2,20 @@
     <head>
         <link rel="stylesheet" href="/css/normalize.css" media="all">
         <link rel="stylesheet" href="/css/skeleton.css" media="all">
+        <link rel="stylesheet" href="/css/main.css" media="all">
+
         <title>To Do List</title>
     </head>
     <body>
-        <p>
-            Hello
-            {{ category.getName() }}
+        <div class="container">
             {% if all_tasks is not empty %}
+            <ul>
                 {% for task in tasks %}
                     <li><a href="/tasks/{{ task.getId() }}">{{ task.getDescription() }}</a></li>
                 {% endfor %}
+            </ul>
+
             {% endif %}
-        </p>
 
             {% if all_tasks is not empty %}
             <p>
@@ -48,5 +50,7 @@
 
             <p><a href="/categories">Go back to categories</a></p>
             <p><a href="/">Go back home</a></p>
+        </div>
+
         </body>
 </html>

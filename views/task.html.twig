@@ -6,44 +6,44 @@
         <title>To Do List</title>
     </head>
     <body>
-        <p>
-            <a href="/">Home</a> &gt; <a href="/tasks">Tasks</a> &gt; {{ task.getDescription() }}
-        </p>
-
-        <h1>Task &colon; {{ task.getDescription() }}</h1>
-
-        <hr>
-
-        {% if categories is not empty %}
-
-            <h3>This Task is in these categories:</h3>
-
-            <ul>
-                {% for category in categories %}
-
-                    <li><a href="/categories/{{ category.getId() }}">{{ category.getName() }}</a></li>
-
-                {% endfor %}
-            </ul>
-        {% else %}
+        <div class="container">
             <p>
-                No Categories were found, add one!
+                <a href="/">Home</a> &gt; <a href="/tasks">Tasks</a> &gt; {{ task.getDescription() }}
             </p>
-        {% endif %}
+
+            <h2>{{ task.getDescription() }}</h1>
 
         {% if all_categories is not empty %}
-            <h3>Link a Category to this Task</h3>
+            <div class="row darken">
+                <h5>Link a Category to this Task</h5>
 
-            <form action="/tasks/{{ task.getId() }}" method="post">
-                <label for="category_name">Category Name</label>
-                <select id="category_name" name="category_name">
-                    {% for category in all_categories %}
-                        <option value="{{ category.getId()}}">{{ category.getName() }}</option>
-                    {% endfor %}
-                </select>
+                <form action="/tasks/{{ task.getId() }}" method="post">
+                    <label for="category_name">Category Name</label>
+                    <select id="category_name" name="category_name">
+                        {% for category in all_categories %}
+                            <option value="{{ category.getId()}}">{{ category.getName() }}</option>
+                        {% endfor %}
+                    </select>
 
-                <button type="submit">Add Category</button>
-            </form>
+                    <button type="submit">Add Category</button>
+                </form>
+
+                {% if categories is not empty %}
+
+                    <ul>
+                        {% for category in categories %}
+
+                            <li><a href="/categories/{{ category.getId() }}">{{ category.getName() }}</a></li>
+
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>
+                        No Categories were found, add one!
+                    </p>
+                {% endif %}
+            </div>
+
         {% endif %}
 
         <form action="/tasks/{{ task.getId() }}" method="post">
@@ -62,5 +62,6 @@
             <button type="submit">Delete</button>
         </form>
 
+    </div>
     </body>
 </html>

@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>To Do List</title>
+    </head>
+    <body>
+        <h1>Tasks</h1>
+
+        <ul>
+            {% for task in tasks %}
+
+                <li>{{ task.getDescription() }}</li>
+
+            {% endfor %}
+        </ul>
+
+        {% if tasks is empty %}
+
+            <h3>There are no tasks currently. Add some!</h3>
+
+        {% endif %}
+
+        <form action="/tasks" method="post">
+            <label for="task_name">Task Name</label>
+            <input type="text" name="task_name" id="task_name" required>
+
+            <button type="submit">Add Task</button>
+        </form>
+
+        <form action="/delete_tasks" method="post">
+
+            <button type="submit">Delete All</button>
+        </form>
+
+        <p>
+            <a href="/">Home</a>
+        </p>
+
+    </body>
+</html>

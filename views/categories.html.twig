@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>Categories</title>
+    </head>
+    <body>
+            Categories
+
+            {% if categories is not empty %}
+            <ul>
+                {% for category in categories %}
+                <li> {{ category.getName() }} </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p> You have no categories currently </p>
+            {% endif %}
+
+
+            <form action = "/categories" method ="post">
+                <label for = "category_name"> Category Name </label>
+                <input id = "category_name" name = "category_name" type = "text" required>
+                <button type = "submit">Go</button>
+            </form>
+
+            <form action = "/delete_categories" method = "post">
+                <button type = "submit">Delete</button>
+            </form>
+
+            <a href="/">Click to go home</a>
+    </body>
+</html>

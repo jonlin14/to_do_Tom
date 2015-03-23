@@ -76,10 +76,12 @@ class Task
                 $query = $GLOBALS['DB']->query("SELECT * FROM categories WHERE id = {$cat_id};");
                 $cat_array = $query->fetchAll(PDO::FETCH_ASSOC);
 
-                $id = $cat_array[0]['id'];
-                $name = $cat_array[0]['name'];
-                $new_category = new Category($name, $id);
-                array_push($categories, $new_category);
+                if(!empty($cat_array)) {
+                    $id = $cat_array[0]['id'];
+                    $name = $cat_array[0]['name'];
+                    $new_category = new Category($name, $id);
+                    array_push($categories, $new_category);
+                }
             }
             return $categories;
         }

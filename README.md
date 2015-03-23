@@ -1,12 +1,12 @@
 # To do List
 
-### Bojana Skarich & Tom Mertz
+### Tom Mertz & John Lin
 
 ###### March 18, 2015
 
 ##### Description
 
-Allows users to input categories and then enter tasks to add to those categories.
+Allows users to input categories and tasks. A user can add a task to multiple categories and a category to multiple tasks.
 
 ##### Technologies
 
@@ -22,7 +22,7 @@ Allows users to input categories and then enter tasks to add to those categories
 
 The MIT License (MIT)
 
-Copyright (c) 2015 Bojana Skarich & Tom Mertz
+Copyright (c) 2015 John Lin & Tom Mertz
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
